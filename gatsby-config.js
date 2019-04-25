@@ -2,13 +2,26 @@ require(`dotenv`).config({ path: `.env` });
 
 module.exports = {
   siteMetadata: {
-    name: `Hello Typescript World!`,
-    tagline: `Gatsby + SASS + Typescript = 💪`
+    author: `Anjana Iyer`,
+    description: "",
+    keywords: [
+      "illustrator",
+      "illustration",
+      "motion design",
+      "design",
+      "auckland",
+      "new zealand",
+      "nz"
+    ],
+    lang: "en",
+    meta: [],
+    title: `Anjana Iyer - Illustrator - Motion Designer - Auckland, NZ`
   },
   plugins: [
     `gatsby-plugin-sass`,
     `gatsby-plugin-typescript`,
     `gatsby-plugin-tslint`,
+    `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-source-contentful`,
       options: {
