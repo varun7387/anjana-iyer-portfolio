@@ -22,8 +22,14 @@ exports.createPages = ({ graphql, actions }) => {
                   description {
                     json
                   }
+                  tags
                   files {
-                    fluid {
+                    id
+                    title
+                    file {
+                      contentType
+                    }
+                    fluid(maxWidth: 1920) {
                       sizes
                       src
                     }

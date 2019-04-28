@@ -1,0 +1,22 @@
+h1.logo {
+  font-size: 2em;
+  color: #555;
+}
+
+.main-nav {
+  background-color: #fff;
+}
+
+.main-nav .nav-link {
+  color: #555;
+  text-transform: uppercase;
+}
+
+.main-nav .nav-link:hover,
+.main-nav .nav-link:focus {
+  color: #111;
+}
+
+.main-nav .nav-link.active {
+  color: #f6803f;
+}

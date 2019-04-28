@@ -1,5 +1,6 @@
 import { Link } from "gatsby";
 import React from "react";
+import { Col, Container, Nav, Navbar, Row } from "react-bootstrap";
 
 interface LayoutProps {
   currentLocation: string;
@@ -10,38 +11,55 @@ interface LayoutProps {
 export default class Layout extends React.Component<LayoutProps, {}> {
   public render() {
     return (
-      <div>
-        <header>
-          {this.props.title}
-          <ul className="nav">
-            <li
-              className={
-                this.props.currentLocation === "/" ||
-                this.props.currentLocation === "/index"
-                  ? "active"
-                  : ""
-              }
-            >
-              <Link title="Work" to={"/"}>
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link
-                title="About"
-                to={"/about"}
-                className={
-                  this.props.currentLocation === "/about" ? "active" : ""
-                }
-              >
-                About
-              </Link>
-            </li>
-          </ul>
-        </header>
+      <Container>
+        <Row>
+          <Col>
+            <h1 className="text-center logo">Anjana Iyer</h1>
+          </Col>
+        </Row>
+        <nav className="main-nav sticky-top">
+          <Row>
+            <Col>
+              <ul className="nav justify-content-center">
+                <li className="nav-item">
+                  <Link
+                    to="/"
+                    className={
+                      this.props.currentLocation === "/work" ||
+                      this.props.currentLocation === "/" ||
+                      this.props.currentLocation === "/index"
+                        ? "nav-link active"
+                        : "nav-link"
+                    }
+                  >
+                    Work
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link
+                    to="/about"
+                    className={
+                      this.props.currentLocation === "/about"
+                        ? "nav-link active"
+                        : "nav-link"
+                    }
+                  >
+                    About
+                  </Link>
+                </li>
+              </ul>
+            </Col>
+          </Row>
+        </nav>
         <main>{this.props.children}</main>
-        <footer>© {new Date().getFullYear()} Anjana Iyer</footer>
-      </div>
+        <footer>
+          <Row>
+            <Col className="text-center">
+              © {new Date().getFullYear()} Anjana Iyer
+            </Col>
+          </Row>
+        </footer>
+      </Container>
     );
   }
 }

@@ -27,7 +27,6 @@ export const projectPageQuery = graphql`
       files {
         id
         title
-        description
         file {
           contentType
         }
@@ -39,6 +38,18 @@ export const projectPageQuery = graphql`
     }
   }
 `;
+
+interface ContentfulFile {
+  id: string;
+  title: string;
+  file: {
+    contentType: string;
+  };
+  fluid: {
+    sizes: string;
+    src: string;
+  };
+}
 
 interface ProjectPageProps {
   pageContext: {
@@ -63,18 +74,7 @@ interface ProjectPageProps {
       description: {
         json: any;
       };
-      files: Array<{
-        id: string;
-        title: string;
-        description: string;
-        file: {
-          contentType: string;
-        };
-        fluid: {
-          sizes: string;
-          src: string;
-        };
-      }>;
+      files: ContentfulFile[];
     };
   };
 }
@@ -83,6 +83,15 @@ export default class Project extends React.Component<ProjectPageProps, {}> {
   public renderRichTextComponent = (document: any) => {
     return documentToReactComponents(document);
   };
+
+  public renderFile(file: ContentfulFile, key: number) {
+    return (
+      <li key={key}>
+        <img src={file.fluid.src} title={file.title} />
+        <b>{file.title}</b>
+      </li>
+    );
+  }
 
   public render() {
     const pageContext = this.props.pageContext;
@@ -99,6 +108,10 @@ export default class Project extends React.Component<ProjectPageProps, {}> {
         />
         <div className={styles.Container}>
           <h1>{data.title.title}</h1>
+          {this.renderRichTextComponent(data.description.json)}
+          <ul>
+            {data.files.map((file, index) => this.renderFile(file, index))}
+          </ul>
         </div>
       </Layout>
     );
