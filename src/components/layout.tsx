@@ -1,6 +1,6 @@
 import { Link } from "gatsby";
 import React from "react";
-import { Col, Container, Nav, Navbar, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 
 interface LayoutProps {
   currentLocation: string;

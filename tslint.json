@@ -2,6 +2,9 @@
   "defaultSeverity": "error",
   "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
   "jsRules": {},
+  "linterOptions": {
+    "exclude": ["node_modules"]
+  },
   "rules": {
     "quotemark": [true, "double", "jsx-double"],
     "interface-name": [false],
