@@ -1,13 +1,11 @@
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { graphql } from "gatsby";
 import * as React from "react";
-import ProjectList from "../components/projectList";
-import { ProjectListItemData } from "../components/projectlistItem";
+import Layout from "../components/layout";
 import SEO from "../components/seo";
-import Layout from "./../components/layout";
-import * as styles from "./Index.module.scss";
+import * as styles from "./About.module.scss";
 
-interface IndexPageProps {
+interface AboutPageProps {
   data: {
     site: {
       siteMetadata: {
@@ -18,18 +16,11 @@ interface IndexPageProps {
         author: string;
       };
     };
-    allContentfulProject: {
-      edges: [
-        {
-          node: ProjectListItemData;
-        }
-      ];
-    };
   };
 }
 
-export const indexPageQuery = graphql`
-  query IndexPageQuery {
+export const aboutPageQuery = graphql`
+  query AboutPageQuery {
     site {
       siteMetadata {
         title
@@ -39,37 +30,15 @@ export const indexPageQuery = graphql`
         keywords
       }
     }
-    allContentfulProject(sort: { fields: [date] }) {
-      edges {
-        node {
-          id
-          slug
-          date(formatString: "YYYY-MM-DD")
-          title {
-            title
-          }
-          thumbnail {
-            fluid(maxWidth: 640) {
-              sizes
-              src
-            }
-          }
-        }
-      }
-    }
   }
 `;
 
-export default class IndexPage extends React.Component<IndexPageProps, {}> {
+export default class AboutPage extends React.Component<AboutPageProps, {}> {
   public renderRichText = (document: any) => {
     return documentToReactComponents(document);
   };
 
   public render() {
-    const projects = this.props.data.allContentfulProject.edges
-      .map(edge => edge.node)
-      .sort((prev, curr) => (prev.date < curr.date ? 1 : 0));
-
     return (
       <Layout
         currentLocation="/"
@@ -84,9 +53,7 @@ export default class IndexPage extends React.Component<IndexPageProps, {}> {
           meta={[]}
         />
 
-        <div className={styles.Container}>
-          <ProjectList projects={projects} />
-        </div>
+        <div className={styles.Container} />
       </Layout>
     );
   }

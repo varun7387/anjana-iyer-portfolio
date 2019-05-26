@@ -14,13 +14,14 @@ exports.createPages = ({ graphql, actions }) => {
               edges {
                 node {
                   id
+                  contentful_id
                   slug
                   date(formatString: "MMM YYYY")
                   title {
                     title
                   }
                   description {
-                    json
+                    description
                   }
                   tags
                   files {
@@ -46,12 +47,13 @@ exports.createPages = ({ graphql, actions }) => {
 
         // Create pages for each project.
         result.data.allContentfulProject.edges.forEach(({ node }) => {
+          console.log(node.contentful_id, node.slug);
           const path = `/project/${node.slug}`;
           createPage({
             path,
             component: projectTemplate,
             context: {
-              id: node.id,
+              contentful_id: node.contentful_id,
               location: path
             }
           });

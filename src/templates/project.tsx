@@ -1,27 +1,29 @@
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { graphql } from "gatsby";
 import * as React from "react";
+import { Player } from "video-react";
 import Layout from "../components/layout";
 import SEO from "../components/seo";
 import * as styles from "./Project.module.scss";
 
 export const projectPageQuery = graphql`
-  query ProjectPageQuery($id: String!) {
+  query ProjectPageQuery($contentful_id: String!) {
     site {
       siteMetadata {
         lang
         author
+        keywords
       }
     }
-    contentfulProject(id: { eq: $id }) {
-      id
+    contentfulProject(contentful_id: { eq: $contentful_id }) {
+      contentful_id
       slug
       date(formatString: "MMM YYYY")
       title {
         title
       }
       description {
-        json
+        description
       }
       tags
       files {
@@ -29,6 +31,7 @@ export const projectPageQuery = graphql`
         title
         file {
           contentType
+          url
         }
         fluid(maxWidth: 1920) {
           sizes
@@ -44,6 +47,7 @@ interface ContentfulFile {
   title: string;
   file: {
     contentType: string;
+    url: string;
   };
   fluid: {
     sizes: string;
@@ -61,10 +65,12 @@ interface ProjectPageProps {
       siteMetadata: {
         lang: string;
         author: string;
+        keywords: string[];
       };
     };
     contentfulProject: {
       id: string;
+      contentful_id: string;
       slug: string;
       date: string;
       tags: string[];
@@ -72,7 +78,7 @@ interface ProjectPageProps {
         title: string;
       };
       description: {
-        json: any;
+        description: any;
       };
       files: ContentfulFile[];
     };
@@ -83,8 +89,15 @@ export default class Project extends React.Component<ProjectPageProps, {}> {
   public renderRichTextComponent = (document: any) => {
     return documentToReactComponents(document);
   };
+  public renderVideo(file: ContentfulFile, key: number) {
+    return (
+      <li key={key}>
+        <Player playsInline={true} src={file.file.url} />
+      </li>
+    );
+  }
 
-  public renderFile(file: ContentfulFile, key: number) {
+  public renderImage(file: ContentfulFile, key: number) {
     return (
       <li key={key}>
         <img src={file.fluid.src} title={file.title} />
@@ -96,21 +109,27 @@ export default class Project extends React.Component<ProjectPageProps, {}> {
   public render() {
     const pageContext = this.props.pageContext;
     const data = this.props.data.contentfulProject;
+    const siteTags = this.props.data.site.siteMetadata.keywords;
+    const projectTags = data.tags || [];
+
+    const images = data.files.filter(f => f.file.contentType !== "video/mp4");
+    const videos = data.files.filter(f => f.file.contentType === "video/mp4");
+
     return (
       <Layout currentLocation={pageContext.location} title={data.title.title}>
         <SEO
           title={data.title.title}
-          description={""}
-          keywords={data.tags}
+          description={data.description.description}
+          keywords={siteTags.concat(projectTags)}
           author={this.props.data.site.siteMetadata.author}
           lang={this.props.data.site.siteMetadata.lang}
           meta={[]}
         />
         <div className={styles.Container}>
           <h1>{data.title.title}</h1>
-          {this.renderRichTextComponent(data.description.json)}
           <ul>
-            {data.files.map((file, index) => this.renderFile(file, index))}
+            {videos.map((file, index) => this.renderVideo(file, index))}
+            {images.map((file, index) => this.renderImage(file, index))}
           </ul>
         </div>
       </Layout>
