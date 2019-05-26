@@ -24,6 +24,9 @@ export const projectPageQuery = graphql`
       }
       description {
         description
+        childMarkdownRemark {
+          html
+        }
       }
       tags
       files {
@@ -78,7 +81,10 @@ interface ProjectPageProps {
         title: string;
       };
       description: {
-        description: any;
+        description: string;
+        childMarkdownRemark: {
+          html: string;
+        };
       };
       files: ContentfulFile[];
     };
@@ -127,6 +133,11 @@ export default class Project extends React.Component<ProjectPageProps, {}> {
         />
         <div className={styles.Container}>
           <h1>{data.title.title}</h1>
+          <div
+            dangerouslySetInnerHTML={{
+              __html: data.description.childMarkdownRemark.html
+            }}
+          />
           <ul>
             {videos.map((file, index) => this.renderVideo(file, index))}
             {images.map((file, index) => this.renderImage(file, index))}
