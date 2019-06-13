@@ -1,7 +1,7 @@
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { graphql } from "gatsby";
 import * as React from "react";
-import { Col, Row } from "react-bootstrap";
+import { Col, Row, Container } from "react-bootstrap";
 import { Player } from "video-react";
 import Layout from "../components/layout";
 import SEO from "../components/seo";

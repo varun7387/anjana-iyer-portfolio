@@ -52,7 +52,7 @@ export default class Layout extends React.Component<LayoutProps, {}> {
           </Row>
         </nav>
         <main>{this.props.children}</main>
-        <footer>
+        <footer className="footer">
           <Row>
             <Col className="text-center">
               © {new Date().getFullYear()} Anjana Iyer

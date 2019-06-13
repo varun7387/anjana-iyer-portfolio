@@ -5,8 +5,14 @@
 
 .ProjectImage {
   margin-bottom: 15px;
+  max-width: 100%;
+}
+
+.ProjectImage img {
+  width: 100%;
 }
 
 .ProjectVideo {
   margin-bottom: 15px;
+  max-width: 100%;
 }
