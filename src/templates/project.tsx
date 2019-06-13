@@ -1,6 +1,7 @@
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { graphql } from "gatsby";
 import * as React from "react";
+import { Col, Row } from "react-bootstrap";
 import { Player } from "video-react";
 import Layout from "../components/layout";
 import SEO from "../components/seo";
@@ -97,7 +98,7 @@ export default class Project extends React.Component<ProjectPageProps, {}> {
   };
   public renderVideo(file: ContentfulFile, key: number) {
     return (
-      <li key={key}>
+      <li key={key} className={styles.ProjectVideo}>
         <Player playsInline={true} src={file.file.url} />
       </li>
     );
@@ -105,9 +106,8 @@ export default class Project extends React.Component<ProjectPageProps, {}> {
 
   public renderImage(file: ContentfulFile, key: number) {
     return (
-      <li key={key}>
+      <li key={key} className={styles.ProjectImage}>
         <img src={file.fluid.src} title={file.title} />
-        <b>{file.title}</b>
       </li>
     );
   }
@@ -131,18 +131,26 @@ export default class Project extends React.Component<ProjectPageProps, {}> {
           lang={this.props.data.site.siteMetadata.lang}
           meta={[]}
         />
-        <div className={styles.Container}>
-          <h1>{data.title.title}</h1>
-          <div
-            dangerouslySetInnerHTML={{
-              __html: data.description.childMarkdownRemark.html
-            }}
-          />
-          <ul>
-            {videos.map((file, index) => this.renderVideo(file, index))}
-            {images.map((file, index) => this.renderImage(file, index))}
-          </ul>
-        </div>
+        <Row>
+          <Col>
+            <h1>{data.title.title}</h1>
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={12} md={4}>
+            <div
+              dangerouslySetInnerHTML={{
+                __html: data.description.childMarkdownRemark.html
+              }}
+            />
+          </Col>
+          <Col xs={12} md={8}>
+            <ul className={styles.ProjectAssets}>
+              {videos.map((file, index) => this.renderVideo(file, index))}
+              {images.map((file, index) => this.renderImage(file, index))}
+            </ul>
+          </Col>
+        </Row>
       </Layout>
     );
   }

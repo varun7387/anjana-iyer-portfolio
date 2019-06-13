@@ -13,7 +13,7 @@ export default class ProjectList extends React.Component<ProjectListProps, {}> {
       default: 3,
       1100: 2,
       700: 2,
-      500: 2
+      500: 1
     };
     return (
       <Masonry
