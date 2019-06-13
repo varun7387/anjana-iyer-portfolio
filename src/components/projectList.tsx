@@ -21,9 +21,13 @@ export default class ProjectList extends React.Component<ProjectListProps, {}> {
         columnClassName={styles.ProjectListItem}
         breakpointCols={breakpointColumnsObj}
       >
-        {this.props.projects.map((project, index) => (
-          <ProjectListItem key={index} data={project} />
-        ))}
+        {this.props.projects
+          .sort((prev, curr) => {
+            return new Date(curr.date) > new Date(prev.date) ? 1 : 0;
+          })
+          .map((project, index) => (
+            <ProjectListItem key={index} data={project} />
+          ))}
       </Masonry>
     );
   }
