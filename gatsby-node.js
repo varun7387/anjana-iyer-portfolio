@@ -47,7 +47,6 @@ exports.createPages = ({ graphql, actions }) => {
 
         // Create pages for each project.
         result.data.allContentfulProject.edges.forEach(({ node }) => {
-          console.log(node.contentful_id, node.slug);
           const path = `/project/${node.slug}`;
           createPage({
             path,

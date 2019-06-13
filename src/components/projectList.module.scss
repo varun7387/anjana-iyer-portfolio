@@ -1,0 +1,53 @@
+.Projects {
+  display: flex;
+  margin-left: -30px; /* gutter size offset */
+  width: auto;
+}
+
+.ProjectListItem {
+  padding-left: 30px; /* gutter size */
+  background-clip: padding-box;
+}
+
+.ProjectListItemContent {
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.ProjectThumbnail {
+  width: 100%;
+}
+
+.ProjectTitle {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  bottom: 0;
+  right: 0;
+  text-align: center;
+  vertical-align: middle;
+  transform: translateY(-25%);
+  font-size: 22px;
+  line-height: 30px;
+  color: #fff;
+}
+
+.ProjectListItemContent:hover,
+.ProjectListItemContent:focus {
+  cursor: pointer;
+
+  .ProjectTitle {
+    display: block;
+  }
+
+  &:before {
+    content: " ";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+}

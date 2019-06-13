@@ -5,7 +5,6 @@ import ProjectList from "../components/projectList";
 import { ProjectListItemData } from "../components/projectlistItem";
 import SEO from "../components/seo";
 import Layout from "./../components/layout";
-import * as styles from "./Index.module.scss";
 
 interface IndexPageProps {
   data: {
@@ -84,9 +83,7 @@ export default class IndexPage extends React.Component<IndexPageProps, {}> {
           meta={[]}
         />
 
-        <div className={styles.Container}>
-          <ProjectList projects={projects} />
-        </div>
+        <ProjectList projects={projects} />
       </Layout>
     );
   }

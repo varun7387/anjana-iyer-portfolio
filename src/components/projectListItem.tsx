@@ -1,6 +1,6 @@
 import { Link } from "gatsby";
 import * as React from "react";
-import { Col } from "react-bootstrap";
+import * as styles from "./projectList.module.scss";
 
 export interface ProjectListItemData {
   id: string;
@@ -18,7 +18,6 @@ export interface ProjectListItemData {
 }
 
 interface ProjectListItemProps {
-  key: number;
   data: ProjectListItemData;
 }
 
@@ -27,15 +26,15 @@ export class ProjectListItem extends React.Component<ProjectListItemProps, {}> {
     const project = this.props.data;
 
     return (
-      <Col key={this.props.key} className="project-tile">
+      <div className={styles.ProjectListItemContent}>
         <Link to={`/project/${project.slug}`}>
           <img
             src={project.thumbnail.fluid.src}
-            className="project-thumbnail"
+            className={styles.ProjectThumbnail}
           />
-          <h3 className="project-title">{project.title.title}</h3>
+          <h3 className={styles.ProjectTitle}>{project.title.title}</h3>
         </Link>
-      </Col>
+      </div>
     );
   }
 }
