@@ -15,7 +15,8 @@ module.exports = {
     ],
     lang: "en",
     meta: [],
-    title: `Anjana Iyer - Illustrator - Motion Designer - Auckland, NZ`
+    title: `Anjana Iyer - Illustrator - Motion Designer - Auckland, NZ`,
+    siteUrl: `https://www.anjanaiyer.co.nz`
   },
   plugins: [
     `gatsby-plugin-sass`,
@@ -25,6 +26,7 @@ module.exports = {
     `gatsby-plugin-sitemap`,
     `gatsby-transformer-remark`,
     `gatsby-plugin-netlify`,
+    `gatsby-plugin-robots-txt`,
     {
       resolve: `gatsby-source-contentful`,
       options: {
