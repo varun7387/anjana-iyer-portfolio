@@ -1,7 +1,7 @@
 import { Link } from "gatsby";
+import Img, { FluidObject } from "gatsby-image";
 import * as React from "react";
 import * as styles from "./projectList.module.scss";
-
 export interface ProjectListItemData {
   id: string;
   slug: string;
@@ -10,10 +10,7 @@ export interface ProjectListItemData {
     title: string;
   };
   thumbnail: {
-    fluid: {
-      sizes: string;
-      src: string;
-    };
+    fluid: FluidObject;
   };
 }
 
@@ -28,8 +25,8 @@ export class ProjectListItem extends React.Component<ProjectListItemProps, {}> {
     return (
       <div className={styles.ProjectListItemContent}>
         <Link to={`/project/${project.slug}`}>
-          <img
-            src={project.thumbnail.fluid.src}
+          <Img
+            fluid={project.thumbnail.fluid}
             className={styles.ProjectThumbnail}
           />
           <h3 className={styles.ProjectTitle}>{project.title.title}</h3>

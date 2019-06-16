@@ -49,8 +49,7 @@ export const indexPageQuery = graphql`
           }
           thumbnail {
             fluid(maxWidth: 640) {
-              sizes
-              src
+              ...GatsbyContentfulFluid_withWebp_noBase64
             }
           }
         }
